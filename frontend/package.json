@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node -e \"const express = require('express'); const path = require('path'); const app = express(); app.use(express.static(path.join(__dirname, 'dist'))); app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/index.html'))); app.listen(3000);\""
   },
   "dependencies": {
     "react": "^18.2.0",
