@@ -4,11 +4,10 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 
 function App() {
-  const [view, setView] = useState('login'); // 'login', 'register', 'profile'
+  const [view, setView] = useState('login'); 
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
 
-  // Check if user is already logged in
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
@@ -46,30 +45,46 @@ function App() {
 
   return (
     <div className="app">
-      <div className="container">
-        <h1 className="app-title">CodeClash</h1>
+      {/* Header */}
+      <div className="header">
+        <div className="logo-container">
+          <div className="logo">{'</>'}</div>
+          <h1 className="title">CodeClash</h1>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div className="main">
+        <div className="topbar">
+          <h1 style={{fontSize: '1.4rem', fontWeight: 700}}>CodeClash</h1>
+          <div className="search" style={{width: 'auto', gap: '8px'}}>
+            {view === 'profile' && <span style={{color: '#9aa6b2'}}>👤 {user?.name}</span>}
+          </div>
+        </div>
         
-        {view === 'login' && (
-          <Login
-            onSuccess={handleLoginSuccess}
-            onSwitchToRegister={() => setView('register')}
-          />
-        )}
+        <div className="panel">
+          {view === 'login' && (
+            <Login
+              onSuccess={handleLoginSuccess}
+              onSwitchToRegister={() => setView('register')}
+            />
+          )}
 
-        {view === 'register' && (
-          <Register
-            onSuccess={handleRegisterSuccess}
-            onSwitchToLogin={() => setView('login')}
-          />
-        )}
+          {view === 'register' && (
+            <Register
+              onSuccess={handleRegisterSuccess}
+              onSwitchToLogin={() => setView('login')}
+            />
+          )}
 
-        {view === 'profile' && (
-          <Profile
-            user={user}
-            token={token}
-            onLogout={handleLogout}
-          />
-        )}
+          {view === 'profile' && (
+            <Profile
+              user={user}
+              token={token}
+              onLogout={handleLogout}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

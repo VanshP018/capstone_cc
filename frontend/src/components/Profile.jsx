@@ -22,29 +22,35 @@ function Profile({ user, token, onLogout }) {
 
   return (
     <div className="profile-container">
-      <h2>Profile</h2>
+      <h2>Profile Dashboard</h2>
       
-      <div className="profile-card">
+      <div className="profile-card" style={{marginTop: '16px'}}>
         <div className="profile-info">
-          <p><strong>Name:</strong> {profileData?.name}</p>
-          <p><strong>Email:</strong> {profileData?.email}</p>
-          <p><strong>User ID:</strong> {profileData?.id}</p>
-        </div>
+          <div className="profile-meta">
+            <div className="avatar">{profileData?.name?.charAt(0).toUpperCase()}</div>
+            <div>
+              <p style={{fontSize: '1rem', fontWeight: 600, color: '#eaf2ff'}}>{profileData?.name}</p>
+              <p className="small">{profileData?.email}</p>
+              <p className="small">ID: {profileData?.id}</p>
+            </div>
+          </div>
 
-        {error && <div className="error-message">{error}</div>}
+          {error && <div className="error-message">{error}</div>}
 
-        <div className="button-group">
-          <button 
-            onClick={fetchProfile} 
-            className="btn btn-secondary"
-            disabled={loading}
-          >
-            {loading ? 'Refreshing...' : 'Refresh Profile'}
-          </button>
-          
-          <button onClick={onLogout} className="btn btn-logout">
-            Logout
-          </button>
+          <div className="button-group" style={{display: 'flex', gap: '8px', flexDirection: 'row', marginLeft: 'auto'}}>
+            <button 
+              onClick={fetchProfile} 
+              className="btn btn-ghost"
+              disabled={loading}
+              style={{fontSize: '0.9rem'}}
+            >
+              {loading ? '⟳ Refreshing...' : '⟳ Refresh'}
+            </button>
+            
+            <button onClick={onLogout} className="btn btn-danger" style={{fontSize: '0.9rem'}}>
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </div>
