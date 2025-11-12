@@ -14,7 +14,7 @@ module.exports = {
   PORT: process.env.PORT || 3000,
   
   // MongoDB Configuration
-  MONGO_URI: process.env.MONGO_URI,
+  MONGO_URI: process.env.MONGO_URI || 'mongodb://localhost:27017/codeclash',
   
   // Environment
   NODE_ENV: process.env.NODE_ENV || 'development'

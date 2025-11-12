@@ -4,10 +4,16 @@
  */
 
 const mongoose = require('mongoose');
+const config = require('./index');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+    // Check if MONGO_URI is set
+    if (!config.MONGO_URI) {
+      throw new Error('MONGO_URI environment variable is not set');
+    }
+
+    const conn = await mongoose.connect(config.MONGO_URI);
     
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     console.log(`Database: ${conn.connection.name}`);
