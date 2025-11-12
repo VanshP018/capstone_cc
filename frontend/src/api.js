@@ -1,10 +1,16 @@
 // API base URL - use environment variable or fallback
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
+// Log API URL for debugging
+console.log('API URL configured as:', API_URL);
+
 // Helper function to make API calls
 const apiCall = async (endpoint, options = {}) => {
   try {
-    const response = await fetch(`${API_URL}${endpoint}`, {
+    const url = `${API_URL}${endpoint}`;
+    console.log('Making API call to:', url);
+    
+    const response = await fetch(url, {
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
@@ -15,11 +21,14 @@ const apiCall = async (endpoint, options = {}) => {
     const data = await response.json();
 
     if (!response.ok) {
+      console.error('API Error:', response.status, data);
       throw new Error(data.message || 'Something went wrong');
     }
 
+    console.log('API Success:', url, data);
     return data;
   } catch (error) {
+    console.error('API Call Error:', error);
     throw error;
   }
 };
