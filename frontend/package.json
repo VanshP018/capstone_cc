@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
+    "postinstall": "npm rebuild rollup --force"
+
   },
   "dependencies": {
     "react": "^18.2.0",
